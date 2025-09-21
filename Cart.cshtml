@@ -1,0 +1,49 @@
+﻿@model List<ProductViewModel>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>Your Cart</h1>
+
+<br />
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Product Type</th>
+                <th>Color</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var pVM in Model)
+            {
+                <tr>
+                    <td><img src="@pVM.Image" width="200px" height="150px" /></td>
+                    <td>@pVM.Name</td>
+                    <td>@pVM.Price</td>
+                    <td>@pVM.ProductTypeName</td>
+                    <td>@pVM.ProductColor</td>
+                    <td>
+                        <a asp-action="Remove" asp-controller="Home" asp-route-id="@pVM.Id" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-6">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-success">Back To Home</a>
+    </div>
+    <div class="col-6 text-end">
+        <h3>Total Amount</h3>
+        <h3>Grant total : @Model.Sum(pVM=>pVM.Price)</h3>
+        <a asp-action="Checkout" asp-controller="Order" class="btn btn-primary">Process to Checkout</a>
+    </div>
+</div>
